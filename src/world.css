@@ -1,0 +1,70 @@
+html, body { margin: 0; height: 100%; overflow: hidden; }
+
+body {
+  /* sky in hard-edged pastel bands */
+  background: linear-gradient(
+    #bfe0ff 0 22%,
+    #d2e9ff 22% 40%,
+    #e6eeff 40% 56%,
+    #f3e8ff 56% 70%,
+    #ffe8f3 70% 84%,
+    #fff0e0 84% 100%
+  );
+  font-family: "Press Start 2P", monospace;
+  image-rendering: pixelated;
+}
+
+/* sun: a stepped pixel circle */
+.sun {
+  position: fixed; top: 56px; right: 96px;
+  width: 80px; height: 80px;
+  background: #ffe9a8;
+  clip-path: polygon(
+    30% 0, 70% 0, 70% 10%, 90% 10%, 90% 30%, 100% 30%,
+    100% 70%, 90% 70%, 90% 90%, 70% 90%, 70% 100%, 30% 100%,
+    30% 90%, 10% 90%, 10% 70%, 0 70%, 0 30%, 10% 30%, 10% 10%, 30% 10%
+  );
+}
+
+/* pixel clouds (each block is 16px), with a lavender underside */
+.cloud {
+  position: fixed; width: 16px; height: 16px;
+  box-shadow:
+    32px 0 #fff, 48px 0 #fff, 64px 0 #fff,
+    16px 16px #fff, 32px 16px #fff, 48px 16px #fff, 64px 16px #fff, 80px 16px #fff,
+    0 32px #e8defa, 16px 32px #e8defa, 32px 32px #e8defa, 48px 32px #e8defa,
+    64px 32px #e8defa, 80px 32px #e8defa, 96px 32px #e8defa;
+  animation: drift 60s linear infinite;
+}
+.c1 { top: 90px;  left: -120px; }
+.c2 { top: 200px; left: -120px; animation-duration: 90s; animation-delay: -40s; transform: scale(.7); }
+
+@keyframes drift { to { translate: calc(100vw + 240px) 0; } }
+
+/* title */
+.title {
+  position: fixed; inset: 0 0 auto 0;
+  top: 28%; text-align: center;
+}
+.title h1 {
+  margin: 0; font-size: clamp(28px, 7vw, 72px);
+  color: #fff;
+  text-shadow: 4px 4px 0 #c3a8f0, 8px 8px 0 #9d84d6;
+}
+.title p {
+  margin-top: 32px; font-size: clamp(8px, 1.6vw, 14px);
+  color: #8a78ad;
+}
+
+/* ground the pets walk on */
+.grass {
+  position: fixed; left: 0; right: 0; bottom: 0; height: 48px;
+  background:
+    repeating-linear-gradient(90deg, #a6e3a1 0 8px, #bdf0b4 8px 16px) top / 100% 8px no-repeat,
+    #cdf5c4;
+  border-top: 4px solid #7fbf8a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud { animation: none; left: 20%; }
+}

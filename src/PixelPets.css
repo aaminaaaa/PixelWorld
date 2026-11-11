@@ -1,0 +1,45 @@
+.pixel-pets {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;   /* never blocks clicks on your UI */
+  z-index: 20;
+  overflow: hidden;
+}
+
+.pet {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  will-change: transform;
+}
+
+/* soft shadow on the ground */
+.pet::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  bottom: -2px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(58, 46, 46, 0.14);
+}
+
+.pet-flip { position: relative; z-index: 1; }
+.pet[data-dir="-1"] .pet-flip { transform: scaleX(-1); }
+
+.pet svg { display: block; transform-origin: 50% 100%; }
+
+/* walk cycle: swap between two leg frames */
+.pet[data-frame="a"] .f-b,
+.pet[data-frame="b"] .f-a { display: none; }
+
+/* gentle breathing when standing still */
+.pet[data-mode="idle"] svg { animation: pet-breathe 2.2s ease-in-out infinite; }
+
+@keyframes pet-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50%      { transform: scale(1.03, 0.96); }
+}
